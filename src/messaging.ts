@@ -1,34 +1,35 @@
-export type ContentScriptRequest 
-    = ContentScriptSetConfigRequest
-    | ContentScriptGetConfigRequest
+export type ContentScriptRequest =
+  | ContentScriptSetConfigRequest
+  | ContentScriptGetConfigRequest;
 
 export interface ContentScriptGetConfigRequest {
-    type: "GetConfig",
+  type: "GetConfig";
 }
 
 export interface ContentScriptSetConfigRequest {
-    type: "SetConfig",
-    config: ContentScriptConfig,
+  type: "SetConfig";
+  config: ContentScriptConfig;
 }
 
 export interface ContentScriptConfig {
-    autocraft: {
-        manuscript: boolean,
-        compendium: boolean,
-        blueprint: boolean,
-    }
-    praise: boolean;
+  autocraft: {
+    manuscript: boolean;
+    compendium: boolean;
+    blueprint: boolean;
+  };
+  praise: boolean;
 }
 
-export type ContentScriptResponse 
-    = ContentScriptGetConfigResponse
+export type ContentScriptResponse = ContentScriptGetConfigResponse;
 
 export interface ContentScriptGetConfigResponse {
-    type: "GetConfig",
-    config: ContentScriptConfig,
+  type: "GetConfig";
+  config: ContentScriptConfig;
 }
 
-async function sendToCurrentTab(request: ContentScriptRequest): Promise<ContentScriptResponse | null> {
+async function sendToCurrentTab(
+  request: ContentScriptRequest
+): Promise<ContentScriptResponse | null> {
   const tabs = await browser.tabs.query({
     currentWindow: true,
     active: true,
@@ -45,7 +46,7 @@ async function sendToCurrentTab(request: ContentScriptRequest): Promise<ContentS
 }
 
 export async function getConfig(): Promise<ContentScriptConfig | null> {
-  const response = await sendToCurrentTab({type: "GetConfig"});
+  const response = await sendToCurrentTab({ type: "GetConfig" });
   if (response?.type === "GetConfig") {
     return response.config;
   } else {
@@ -54,5 +55,5 @@ export async function getConfig(): Promise<ContentScriptConfig | null> {
 }
 
 export async function sendConfig(config: ContentScriptConfig): Promise<void> {
-  await sendToCurrentTab({type: "SetConfig", config});
+  await sendToCurrentTab({ type: "SetConfig", config });
 }

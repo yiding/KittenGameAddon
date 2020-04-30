@@ -1,3 +1,3 @@
 window.FabricConfig = {
-    fontBaseUrl: ''
+  fontBaseUrl: "",
 };
