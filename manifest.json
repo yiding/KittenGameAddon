@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "KittenGameAddon",
+    "version": "1.0",
+    "description": "Extensions for the kittens game.",
+    "icons": {
+    },
+    "content_security_policy": "default-src 'self'; style-src 'unsafe-inline';",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.bloodrizer.ru/games/kittens/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "page_action": {
+        "browser_style": true,
+        "default_icon": "page_action_icon.svg",
+        "default_title": "Kitten Automation",
+        "default_popup": "popup.html",
+        "show_matches": [
+            "*://*.bloodrizer.ru/games/kittens/*"
+        ]
+    }
+}

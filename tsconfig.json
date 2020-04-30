@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2019",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "strict": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "jsx": "react",
+    },
+}
