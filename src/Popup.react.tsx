@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Checkbox } from "@fluentui/react/lib/Checkbox";
+import { Separator } from "@fluentui/react/lib/Separator";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { sendConfig, ContentScriptConfig } from "./messaging";
 
@@ -11,6 +12,20 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
   });
   return (
     <Stack tokens={{ childrenGap: 10, padding: 10 }}>
+      <Separator>Autocraft</Separator>
+      <Checkbox
+        label="Alloy"
+        checked={config.autocraft.alloy}
+        onChange={(ev, checked) =>
+          setConfig({
+            ...config,
+            autocraft: {
+              ...config.autocraft,
+              alloy: !!checked,
+            },
+          })
+        }
+      />
       <Checkbox
         label="Manuscript"
         checked={config.autocraft.manuscript}
@@ -24,7 +39,6 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
           })
         }
       />
-      <br />
       <Checkbox
         label="Compendium"
         checked={config.autocraft.compendium}
@@ -38,7 +52,6 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
           })
         }
       />
-      <br />
       <Checkbox
         label="Blueprint"
         checked={config.autocraft.blueprint}
@@ -52,7 +65,7 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
           })
         }
       />
-      <br />
+      <Separator>Other</Separator>
       <Checkbox
         label="Praise when full"
         checked={config.praise}

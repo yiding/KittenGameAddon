@@ -11,6 +11,8 @@ interface Resources {
   minerals?: Resource;
   coal?: Resource;
   iron?: Resource;
+  titanium?: Resource;
+  oil?: Resource;
   catpower?: Resource;
   science?: Resource;
   culture?: Resource;
@@ -18,8 +20,10 @@ interface Resources {
   furs?: Resource;
   beam?: CraftableResource;
   steel?: CraftableResource;
+  alloy?: CraftableResource;
   slab?: CraftableResource;
   plate?: CraftableResource;
+  kerosene?: CraftableResource;
   parchment?: CraftableResource;
   manuscript?: CraftableResource;
   compendium?: CraftableResource;
@@ -196,6 +200,10 @@ function onTick() {
   craftWhenFull(resources.wood, resources.beam);
   craftWhenFull(resources.minerals, resources.slab);
   craftWhenFull(resources.iron, resources.plate);
+  craftWhenFull(resources.oil, resources.kerosene);
+  if (kConfig.autocraft.alloy) {
+    craftWhenFull(resources.titanium, resources.alloy);
+  }
   if (kConfig.autocraft.manuscript) {
     craftWhenFull(resources.culture, resources.manuscript);
   }
@@ -224,6 +232,7 @@ async function onMessage(
 
 let kConfig: ContentScriptConfig = {
   autocraft: {
+    alloy: false,
     manuscript: false,
     compendium: false,
     blueprint: false,

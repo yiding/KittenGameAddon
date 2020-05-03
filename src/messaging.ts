@@ -13,6 +13,7 @@ export interface ContentScriptSetConfigRequest {
 
 export interface ContentScriptConfig {
   autocraft: {
+    alloy: boolean;
     manuscript: boolean;
     compendium: boolean;
     blueprint: boolean;
