@@ -9,7 +9,7 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*.bloodrizer.ru/games/kittens/*"
+                "*://kittensgame.com/web/*"
             ],
             "js": [
                 "content.js"
@@ -22,7 +22,7 @@
         "default_title": "Kitten Automation",
         "default_popup": "popup.html",
         "show_matches": [
-            "*://*.bloodrizer.ru/games/kittens/*"
+            "*://kittensgame.com/web/*"
         ]
     }
 }
