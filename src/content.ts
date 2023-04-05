@@ -18,6 +18,7 @@ interface Resources {
   culture?: Resource;
   faith?: Resource;
   furs?: Resource;
+  uranium?: Resource;
   beam?: CraftableResource;
   steel?: CraftableResource;
   alloy?: CraftableResource;
@@ -28,6 +29,7 @@ interface Resources {
   manuscript?: CraftableResource;
   compendium?: CraftableResource;
   blueprint?: CraftableResource;
+  thorium?: CraftableResource;
 }
 
 interface WritableResources extends Resources {
@@ -201,6 +203,7 @@ function onTick() {
   craftWhenFull(resources.minerals, resources.slab);
   craftWhenFull(resources.iron, resources.plate);
   craftWhenFull(resources.oil, resources.kerosene);
+  craftWhenFull(resources.uranium, resources.thorium);
   if (kConfig.autocraft.alloy) {
     craftWhenFull(resources.titanium, resources.alloy);
   }
