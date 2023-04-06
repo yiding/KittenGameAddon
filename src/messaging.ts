@@ -17,6 +17,7 @@ export interface ContentScriptConfig {
     manuscript: boolean;
     compendium: boolean;
     blueprint: boolean;
+    eludium: boolean;
   };
   praise: boolean;
 }

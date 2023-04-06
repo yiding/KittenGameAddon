@@ -19,6 +19,7 @@ interface Resources {
   faith?: Resource;
   furs?: Resource;
   uranium?: Resource;
+  unobtainium?: Resource;
   beam?: CraftableResource;
   steel?: CraftableResource;
   alloy?: CraftableResource;
@@ -30,6 +31,7 @@ interface Resources {
   compendium?: CraftableResource;
   blueprint?: CraftableResource;
   thorium?: CraftableResource;
+  eludium?: CraftableResource;
 }
 
 interface WritableResources extends Resources {
@@ -210,6 +212,9 @@ function onTick() {
   if (kConfig.autocraft.manuscript) {
     craftWhenFull(resources.culture, resources.manuscript);
   }
+  if (kConfig.autocraft.eludium) {
+    craftWhenFull(resources.unobtainium, resources.eludium);
+  }
 
   if (resources.furs != null && resources.furs.amount > 10000) {
     craftWhenLessThan(625, resources.parchment);
@@ -239,6 +244,7 @@ let kConfig: ContentScriptConfig = {
     manuscript: false,
     compendium: false,
     blueprint: false,
+    eludium: false,
   },
   praise: false,
 };

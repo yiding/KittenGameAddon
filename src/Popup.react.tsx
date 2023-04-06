@@ -65,6 +65,19 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
           })
         }
       />
+      <Checkbox
+        label="Eludium"
+        checked={config.autocraft.eludium}
+        onChange={(ev, checked) =>
+          setConfig({
+            ...config,
+            autocraft: {
+              ...config.autocraft,
+              eludium: !!checked,
+            },
+          })
+        }
+      />
       <Separator>Other</Separator>
       <Checkbox
         label="Praise when full"
