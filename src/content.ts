@@ -45,7 +45,7 @@ interface Resource {
 }
 
 interface CraftableResource extends Resource {
-  craftLinks: Array<{
+  craftLinks?: Array<{
     amount: number;
     element: HTMLElement;
   }>;
@@ -147,6 +147,9 @@ function praiseWhenFull(faith: Resource) {
 }
 
 function craft(resource: CraftableResource): boolean {
+  if (resource.craftLinks == null) {
+    return false;
+  }
   if (resource.craftLinks.length <= 0) {
     return false;
   }
