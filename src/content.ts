@@ -55,8 +55,10 @@ function parseNumberWithUnit(str: string): number {
   const UNITS: { [key: string]: number } = {
     K: 1000,
     M: 1000000,
+    G: 1000000000,
+    B: 1000000000
   };
-  const match = str.match(/([0-9]*([.][0-9]+)?)([KM])?/);
+  const match = str.match(/([0-9]*([.][0-9]+)?)([KMGB])?/);
   //                       ^1     ^2           ^3
   if (match == null) {
     throw new Error("Failed to parse number: " + str);
@@ -202,31 +204,33 @@ function onTick() {
     praiseWhenFull(resources.faith);
   }
 
-  craftWhenFull(resources.coal, resources.steel);
-  craftWhenFull(resources.catnip, resources.craftableWood);
-  craftWhenFull(resources.wood, resources.beam);
-  craftWhenFull(resources.minerals, resources.slab);
-  craftWhenFull(resources.iron, resources.plate);
-  craftWhenFull(resources.oil, resources.kerosene);
-  craftWhenFull(resources.uranium, resources.thorium);
-  if (kConfig.autocraft.alloy) {
-    craftWhenFull(resources.titanium, resources.alloy);
-  }
-  if (kConfig.autocraft.manuscript) {
-    craftWhenFull(resources.culture, resources.manuscript);
-  }
-  if (kConfig.autocraft.eludium) {
-    craftWhenFull(resources.unobtainium, resources.eludium);
-  }
+  if (kConfig.allowAutocraft) {
+    craftWhenFull(resources.coal, resources.steel);
+    craftWhenFull(resources.catnip, resources.craftableWood);
+    craftWhenFull(resources.wood, resources.beam);
+    craftWhenFull(resources.minerals, resources.slab);
+    craftWhenFull(resources.iron, resources.plate);
+    craftWhenFull(resources.oil, resources.kerosene);
+    craftWhenFull(resources.uranium, resources.thorium);
+    if (kConfig.autocraft.alloy) {
+      craftWhenFull(resources.titanium, resources.alloy);
+    }
+    if (kConfig.autocraft.manuscript) {
+      craftWhenFull(resources.culture, resources.manuscript);
+    }
+    if (kConfig.autocraft.eludium) {
+      craftWhenFull(resources.unobtainium, resources.eludium);
+    }
 
-  if (resources.furs != null && resources.furs.amount > 10000) {
-    craftWhenLessThan(625, resources.parchment);
-  }
+    if (resources.furs != null && resources.furs.amount > 10000) {
+      craftWhenLessThan(625, resources.parchment);
+    }
 
-  (kConfig.autocraft.blueprint &&
-    craftWhenFull(resources.science, resources.blueprint)) ||
-    (kConfig.autocraft.compendium &&
-      craftWhenFull(resources.science, resources.compendium));
+    (kConfig.autocraft.blueprint &&
+      craftWhenFull(resources.science, resources.blueprint)) ||
+      (kConfig.autocraft.compendium &&
+        craftWhenFull(resources.science, resources.compendium));
+  }
 }
 
 async function onMessage(
@@ -242,6 +246,7 @@ async function onMessage(
 }
 
 let kConfig: ContentScriptConfig = {
+  allowAutocraft: false,
   autocraft: {
     alloy: false,
     manuscript: false,
@@ -252,4 +257,4 @@ let kConfig: ContentScriptConfig = {
   praise: false,
 };
 browser.runtime.onMessage.addListener(onMessage);
-const interval = window.setInterval(onTick, 1000);
+const interval = window.setInterval(onTick, 500);

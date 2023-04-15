@@ -13,6 +13,16 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
   return (
     <Stack tokens={{ childrenGap: 10, padding: 10 }}>
       <Separator>Autocraft</Separator>
+      <Checkbox 
+        label="Enable autocraft"
+        checked={config.allowAutocraft}
+        onChange={(ev, checked) =>
+          setConfig({
+            ...config,
+            allowAutocraft: !!checked,
+          })
+        }
+      />
       <Checkbox
         label="Alloy"
         checked={config.autocraft.alloy}
