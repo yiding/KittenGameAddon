@@ -35,10 +35,6 @@ module.exports = {
         {
           from: 'page_action_icon.svg',
         },
-        {
-          from: 'node_modules/@uifabric/icons/fonts/fabric-icons-*.woff',
-          to: 'fonts/[name].[ext]',
-        },
       ]
     }),
     new HtmlWebpackPlugin({

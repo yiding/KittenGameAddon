@@ -226,10 +226,11 @@ function onTick() {
       craftWhenLessThan(625, resources.parchment);
     }
 
-    (kConfig.autocraft.blueprint &&
-      craftWhenFull(resources.science, resources.blueprint)) ||
-      (kConfig.autocraft.compendium &&
-        craftWhenFull(resources.science, resources.compendium));
+    if (kConfig.autocraft.blueprint && resources.compendium != null && resources.compendium.amount > kConfig.autocraft.blueprintMinCompendium) {
+      craftWhenFull(resources.science, resources.blueprint);
+    } else if (kConfig.autocraft.compendium) {
+      craftWhenFull(resources.science, resources.compendium);
+    }
   }
 }
 
@@ -252,6 +253,7 @@ let kConfig: ContentScriptConfig = {
     manuscript: false,
     compendium: false,
     blueprint: false,
+    blueprintMinCompendium: 10000,
     eludium: false,
   },
   praise: false,

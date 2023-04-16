@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Checkbox } from "@fluentui/react/lib/Checkbox";
-import { Separator } from "@fluentui/react/lib/Separator";
-import { Stack } from "@fluentui/react/lib/Stack";
+import { Checkbox, Input, Divider, Label} from "@fluentui/react-components";
+import { StackShim } from "@fluentui/react-migration-v8-v9";
 import { sendConfig, ContentScriptConfig } from "./messaging";
 
 export default function Popup(props: { initialConfig: ContentScriptConfig }) {
@@ -11,15 +10,15 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
     sendConfig(config);
   });
   return (
-    <Stack tokens={{ childrenGap: 10, padding: 10 }}>
-      <Separator>Autocraft</Separator>
+    <StackShim tokens={{ childrenGap: 10, padding: 10 }}>
+      <Divider>Autocraft</Divider>
       <Checkbox 
         label="Enable autocraft"
         checked={config.allowAutocraft}
         onChange={(ev, checked) =>
           setConfig({
             ...config,
-            allowAutocraft: !!checked,
+            allowAutocraft: !!checked.checked,
           })
         }
       />
@@ -31,7 +30,7 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
             ...config,
             autocraft: {
               ...config.autocraft,
-              alloy: !!checked,
+              alloy: !!checked.checked,
             },
           })
         }
@@ -44,7 +43,7 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
             ...config,
             autocraft: {
               ...config.autocraft,
-              manuscript: !!checked,
+              manuscript: !!checked.checked,
             },
           })
         }
@@ -57,7 +56,7 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
             ...config,
             autocraft: {
               ...config.autocraft,
-              compendium: !!checked,
+              compendium: !!checked.checked,
             },
           })
         }
@@ -70,11 +69,26 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
             ...config,
             autocraft: {
               ...config.autocraft,
-              blueprint: !!checked,
+              blueprint: !!checked.checked,
             },
           })
         }
       />
+      <div>
+        <Label>Min compendium</Label>
+        <Input type="number" value={config.autocraft.blueprintMinCompendium.toString()} onChange={
+          (ev, data) => {
+             let v = Number(data.value) || 0;
+             setConfig({
+              ...config,
+              autocraft: {
+                ...config.autocraft,
+                blueprintMinCompendium: v,
+              }
+             })
+          }
+        }/>
+      </div>
       <Checkbox
         label="Eludium"
         checked={config.autocraft.eludium}
@@ -83,22 +97,22 @@ export default function Popup(props: { initialConfig: ContentScriptConfig }) {
             ...config,
             autocraft: {
               ...config.autocraft,
-              eludium: !!checked,
+              eludium: !!checked.checked,
             },
           })
         }
       />
-      <Separator>Other</Separator>
+      <Divider>Other</Divider>
       <Checkbox
         label="Praise when full"
         checked={config.praise}
         onChange={(ev, checked) =>
           setConfig({
             ...config,
-            praise: !!checked,
+            praise: !!checked.checked,
           })
         }
       />
-    </Stack>
+    </StackShim>
   );
 }
